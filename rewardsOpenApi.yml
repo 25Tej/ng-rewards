@@ -15,7 +15,7 @@ paths:
           name: customerId
           required: true
           schema:
-            type: number
+            type: string
             format: number
             example: 3678905
       responses:
@@ -27,7 +27,6 @@ paths:
                 type: array
                 items:
                     $ref: '#/components/schemas/ng-rewards'
-                    
         400:
           description: Invalid request
           content:
@@ -58,41 +57,34 @@ components:
       type: object
       required:
         - customerId
-        
       properties:
         customerId:
           type: string
           example: "3678905"  
-      
         activities:
           type: array
           items:
             type: object
-        
             properties:
               activitycompletiondate:
                 type: string
                 format: date
-                
               activityName:
                 type: string
                 example: Quiz
-              
               activityStartDate:
                     type: string
                     format: date
               pointsEarned:
-                    type: integer
+                    type: string
                     minimum: 1
                     maximum: 100
                     example: 50
               rewardsEarned:
-                    type: integer
+                    type: string
                     minimum: 1
                     maximum: 100
                     example: 5
-           
-          
     BadRequestError:
       type: object
       properties:
@@ -107,9 +99,6 @@ components:
                 status:
                   type: integer
                   example: 400
-                  
-             
-
     UnauthorizedError:
       type: object
       properties:
@@ -124,7 +113,6 @@ components:
                 status:
                   type: integer
                   example: 401
-                  
     ForbiddenError:
       type: object
       properties:
@@ -139,7 +127,6 @@ components:
                 status:
                   type: integer
                   example: 403
-                  
     NotFoundError:
       type: object
       properties:
@@ -154,7 +141,6 @@ components:
                 status:
                   type: integer
                   example: 404
-                  
     InternalServerError:
       type: object
       properties:
@@ -169,8 +155,6 @@ components:
                 status:
                   type: integer
                   example: 500
-                
 servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/TEJASUJITH25/ng-rewards/1.0
+  - description: Rewards API 
+    url: http://localhost:3000
