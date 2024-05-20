@@ -93,10 +93,10 @@ components:
             items:
               type: object
               properties:
-                details:
+                message:
                   type: string
                   example: Invalid request
-                status:
+                code:
                   type: integer
                   example: 400
     UnauthorizedError:
@@ -107,26 +107,12 @@ components:
             items:
               type: object
               properties:
-                details:
+                message:
                   type: string
                   example: 'Unauthorized'
-                status:
+                code:
                   type: integer
                   example: 401
-    ForbiddenError:
-      type: object
-      properties:
-        errors:
-            type: array
-            items:
-              type: object
-              properties:
-                details:
-                  type: string
-                  example: 'Forbidden'
-                status:
-                  type: integer
-                  example: 403
     NotFoundError:
       type: object
       properties:
@@ -135,10 +121,10 @@ components:
             items:
               type: object
               properties:
-                details:
+                message:
                   type: string
                   example: 'Not found'
-                status:
+                code:
                   type: integer
                   example: 404
     InternalServerError:
@@ -149,10 +135,10 @@ components:
             items:
               type: object
               properties:
-                details:
+                message:
                   type: string
                   example: 'Internal server error'
-                status:
+                code:
                   type: integer
                   example: 500
 servers:
