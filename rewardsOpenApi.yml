@@ -1,0 +1,142 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: rewards
+  description: 'Get reward details based on customerId'
+paths: 
+  /customers/rewards:
+    get:
+      summary: reward points
+      description: Retrieve customer rewards points
+      tags: 
+        - Rewards
+      parameters:
+        - in: query
+          name: customerId
+          required: true
+          schema:
+            type: string
+            format: number
+            example: 3678905
+      responses:
+        200:
+          description: reward details retrieved successfully
+          content:
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/ng-rewards'
+        400:
+          description: Invalid request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        401:
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        404:
+          description: User not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        500:
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+components:
+  schemas:
+    ng-rewards:
+      type: object
+      required:
+        - customerId
+      properties:
+        customerId:
+          type: string
+          example: "3678905"  
+        activities:
+          type: array
+          items:
+            type: object
+            properties:
+              activitycompletiondate:
+                type: string
+                format: date
+              activityName:
+                type: string
+                example: Quiz
+              activityStartDate:
+                    type: string
+                    format: date
+              pointsEarned:
+                    type: string
+                    example: 50
+              rewardsEarned:
+                    type: string
+                    example: 5
+    BadRequestError:
+      type: object
+      properties:
+        errors:
+            type: array
+            items:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Invalid request
+                code:
+                  type: integer
+                  example: 400
+    UnauthorizedError:
+      type: object
+      properties:
+        errors:
+            type: array
+            items:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'Unauthorized'
+                code:
+                  type: integer
+                  example: 401
+    NotFoundError:
+      type: object
+      properties:
+        errors:
+            type: array
+            items:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'Not found'
+                code:
+                  type: integer
+                  example: 404
+    InternalServerError:
+      type: object
+      properties:
+        errors:
+            type: array
+            items:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'Internal server error'
+                code:
+                  type: integer
+                  example: 500
+servers:
+  - description: Rewards API 
+    url: http://localhost:3000
